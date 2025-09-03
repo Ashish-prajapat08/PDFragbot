@@ -1,36 +1,33 @@
-# 🧠 Modular RAG PDF Chatbot with FastAPI, ChromaDB & Streamlit
 
-## 🎥 Watch the Tutorial
+# 📚 Modular RAG PDF Chatbot
 
-[![Watch the video](assets/ragbot2.0.png)](https://youtu.be/TxtK6NUUklQ)
-
-This project is a modular **Retrieval-Augmented Generation (RAG)** application that allows users to upload PDF documents and chat with an AI assistant that answers queries based on the document content. It features a microservice architecture with a decoupled **FastAPI backend** and **Streamlit frontend**, using **ChromaDB** as the vector store and **Groq's LLaMA3 model** as the LLM.
+A modular **Retrieval-Augmented Generation (RAG)** chatbot that lets you upload PDFs and interact with an AI assistant. The assistant answers queries based on your documents using a **FastAPI backend**, **Streamlit frontend**, **ChromaDB vector store**, and **Groq’s LLaMA3 model**.
 
 ---
 
-## 📂 Project Structure
+## 🏗 Project Structure
 
 ```
-ragbot2.0/
+PDFragbot/
 ├── client/         # Streamlit Frontend
-│   |──components/
-|   |  |──chatUI.py
-|   |  |──history_download.py
-|   |  |──upload.py
-|   |──utils/
-|   |  |──api.py
-|   |──app.py
-|   |──config.py
+│   ├── components/
+│   │   ├── chatUI.py
+│   │   ├── history_download.py
+│   │   └── upload.py
+│   ├── utils/
+│   │   └── api.py
+│   ├── app.py
+│   └── config.py
 ├── server/         # FastAPI Backend
-│   ├── chroma_store/ ....after run
-|   |──modules/
-│      ├── load_vectorestore.py
-│      ├── llm.py
-│      ├── pdf_handler.py
-│      ├── query_handlers.py
-|   |──uploaded_pdfs/ ....after run
+│   ├── modules/
+│   │   ├── load_vectorstore.py
+│   │   ├── llm.py
+│   │   ├── pdf_handler.py
+│   │   └── query_handlers.py
 │   ├── logger.py
-│   └── main.py
+│   ├── main.py
+│   ├── uploaded_pdfs/   # auto-created after run
+│   └── chroma_store/    # auto-created after run
 └── README.md
 ```
 
@@ -38,90 +35,74 @@ ragbot2.0/
 
 ## ✨ Features
 
-- 📄 Upload and parse PDFs
-- 🧠 Embed document chunks with HuggingFace embeddings
-- 💂️ Store embeddings in ChromaDB
-- 💬 Query documents using LLaMA3 via Groq
-- 🌍 Microservice architecture (Streamlit client + FastAPI server)
+* 📂 Upload and parse PDFs
+* 🧩 Chunk documents + generate embeddings (HuggingFace)
+* 🗄 Store embeddings in **ChromaDB**
+* 🤖 Query docs with **Groq LLaMA3**
+* ⚡ Microservice design → **FastAPI backend + Streamlit frontend**
 
 ---
 
-## 🎓 How RAG Works
+## 🔎 How RAG Works
 
-Retrieval-Augmented Generation (RAG) enhances LLMs by injecting external knowledge. Instead of relying solely on pre-trained data, the model retrieves relevant information from a vector database (like ChromaDB) and uses it to generate accurate, context-aware responses.
+**Retrieval-Augmented Generation (RAG)** = LLM + External Knowledge.
 
----
-
-## 📊 Application Diagram
-
-📄 [Download the Full Architecture PDF](assets/ragbot2.0.pdf)
+1. Documents are chunked and embedded → stored in a vector database (ChromaDB).
+2. At query time, relevant chunks are retrieved.
+3. LLaMA3 combines the query + retrieved context → generates accurate, context-aware answers.
 
 ---
 
-## 🚀 Getting Started Locally
+## 🚀 Getting Started
 
-### 1. Clone the Repository
+### 1. Clone Repository
 
 ```bash
-git clone https://github.com/snsupratim/ragbot.git
-cd ragbot
+git clone https://github.com/Ashish-prajapat08/PDFragbot.git
+cd ragbot2.0
 ```
 
-### 2. Setup the Backend (FastAPI)
+### 2. Setup Backend (FastAPI)
 
 ```bash
 cd server
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate    # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-# Set your Groq API Key
-echo "GROQ_API_KEY=your_key_here" > .env
+# Add your Groq API Key
+echo "GROQ_API_KEY=your_api_key_here" > .env
 
-# Run the FastAPI server
+# Run FastAPI server
 uvicorn main:app --reload
 ```
 
-### 3. Setup the Frontend (Streamlit)
+### 3. Setup Frontend (Streamlit)
 
 ```bash
 cd ../client
-pip install -r requirements.txt  # if you use a separate venv for client
+pip install -r requirements.txt
 streamlit run app.py
 ```
 
 ---
 
-## 🌐 API Endpoints (FastAPI)
+## 🌐 API Endpoints
 
-- `POST /upload_pdfs/` — Upload PDFs and build vectorstore
-- `POST /ask/` — Send a query and receive answers
+* `POST /upload_pdfs/` → Upload PDFs & build vectorstore
+* `POST /ask/` → Query PDFs & get AI response
 
-Testable via Postman or directly from the Streamlit frontend.
-
----
-
-## 🚧 TODO
-
-- [ ] Add authentication for endpoints
-- [ ] Dockerize the project
-- [ ] Add support for more file types
+👉 Test via **Postman** or directly from the Streamlit client.
 
 ---
 
-## 🌟 Credits
+## 🛠 Roadmap
 
-- [LangChain](https://www.langchain.com/)
-- [ChromaDB](https://www.trychroma.com/)
-- [Groq](https://groq.com/)
-- [Streamlit](https://streamlit.io/)
-
----
-
-## ✉️ Contact
-
-For questions or suggestions, open an issue or contact at [snsupratim@gmail.com]
+* [ ] Add authentication
+* [ ] Dockerize frontend & backend
+* [ ] Support more file formats (DOCX, TXT, etc.)
 
 ---
 
-> Happy Building RAGbots! 🚀
+⚡ With this modular design, you can easily extend the chatbot with new features, models, or storage backends.
+
