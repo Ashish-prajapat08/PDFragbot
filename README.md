@@ -59,7 +59,7 @@ PDFragbot/
 
 ```bash
 git clone https://github.com/Ashish-prajapat08/PDFragbot.git
-cd ragbot2.0
+cd PDFragbot
 ```
 
 ### 2. Setup Backend (FastAPI)
